@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CalcX Pro is a premium scientific calculator with history, converters, voice features, themes, and offline PWA support."
+    />
+    <meta name="theme-color" content="#111827" />
+    <title>CalcX Pro | Scientific Calculator</title>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar" aria-label="Application header">
+        <a class="brand" href="#" aria-label="CalcX Pro home">
+          <span class="brand-mark">CX</span>
+          <span>
+            <strong>CalcX Pro</strong>
+            <small>Scientific calculator suite</small>
+          </span>
+        </a>
+
+        <nav class="top-actions" aria-label="Quick actions">
+          <button class="icon-button" id="voiceInputBtn" type="button" aria-label="Start voice input" title="Voice input">
+            <span aria-hidden="true">🎙</span>
+          </button>
+          <button class="icon-button" id="soundToggle" type="button" aria-label="Toggle sound" title="Sound">
+            <span aria-hidden="true">♪</span>
+          </button>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+            <span aria-hidden="true">☀</span>
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            <span aria-hidden="true">☾</span>
+          </button>
+        </nav>
+      </header>
+
+      <main class="workspace">
+        <section class="calculator-card" aria-labelledby="calculatorTitle">
+          <div class="display-panel">
+            <div class="display-header">
+              <div>
+                <p class="eyebrow">Live Expression</p>
+                <h1 id="calculatorTitle">Calculator</h1>
+              </div>
+              <button class="ghost-button" id="copyBtn" type="button">Copy Result</button>
+            </div>
+
+            <div class="expression" id="expressionDisplay" aria-live="polite">0</div>
+            <output class="result" id="resultDisplay" aria-live="assertive">0</output>
+            <p class="status-line" id="statusLine">Ready for precision.</p>
+          </div>
+
+          <div class="mode-tabs" role="tablist" aria-label="Calculator modes">
+            <button class="mode-tab is-active" type="button" data-panel="standardPanel" role="tab" aria-selected="true">
+              Standard
+            </button>
+            <button class="mode-tab" type="button" data-panel="scientificPanel" role="tab" aria-selected="false">
+              Scientific
+            </button>
+          </div>
+
+          <section class="keypad panel is-active" id="standardPanel" aria-label="Calculator keypad">
+            <button class="key function" data-action="all-clear" type="button">AC</button>
+            <button class="key function" data-action="clear-entry" type="button">CE</button>
+            <button class="key function" data-action="backspace" type="button">⌫</button>
+            <button class="key operator" data-token="/" type="button">÷</button>
+
+            <button class="key" data-token="7" type="button">7</button>
+            <button class="key" data-token="8" type="button">8</button>
+            <button class="key" data-token="9" type="button">9</button>
+            <button class="key operator" data-token="*" type="button">×</button>
+
+            <button class="key" data-token="4" type="button">4</button>
+            <button class="key" data-token="5" type="button">5</button>
+            <button class="key" data-token="6" type="button">6</button>
+            <button class="key operator" data-token="-" type="button">−</button>
+
+            <button class="key" data-token="1" type="button">1</button>
+            <button class="key" data-token="2" type="button">2</button>
+            <button class="key" data-token="3" type="button">3</button>
+            <button class="key operator" data-token="+" type="button">+</button>
+
+            <button class="key function" data-action="toggle-sign" type="button">±</button>
+            <button class="key" data-token="0" type="button">0</button>
+            <button class="key" data-token="." type="button">.</button>
+            <button class="key equals" data-action="calculate" type="button">=</button>
+          </section>
+
+          <section class="scientific-grid panel" id="scientificPanel" aria-label="Scientific functions">
+            <button class="key function" data-science="sqrt" type="button">√</button>
+            <button class="key function" data-science="square" type="button">x²</button>
+            <button class="key function" data-token="^" type="button">xʸ</button>
+            <button class="key function" data-science="factorial" type="button">n!</button>
+            <button class="key function" data-science="log" type="button">log</button>
+            <button class="key function" data-science="ln" type="button">ln</button>
+            <button class="key function" data-science="sin" type="button">sin</button>
+            <button class="key function" data-science="cos" type="button">cos</button>
+            <button class="key function" data-science="tan" type="button">tan</button>
+            <button class="key function" data-token="(" type="button">(</button>
+            <button class="key function" data-token=")" type="button">)</button>
+            <button class="key function" data-token="π" type="button">π</button>
+            <button class="key function" data-token="e" type="button">e</button>
+            <button class="key function" data-token="%" type="button">%</button>
+            <button class="key equals wide" data-action="calculate" type="button">Solve</button>
+          </section>
+        </section>
+
+        <aside class="side-panel" aria-label="History and settings">
+          <section class="glass-section history-section" aria-labelledby="historyTitle">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Saved Locally</p>
+                <h2 id="historyTitle">History</h2>
+              </div>
+              <button class="ghost-button danger" id="clearHistoryBtn" type="button">Clear</button>
+            </div>
+            <ul class="history-list" id="historyList" aria-live="polite"></ul>
+          </section>
+
+          <section class="glass-section settings-section" aria-labelledby="settingsTitle">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Preferences</p>
+                <h2 id="settingsTitle">Settings</h2>
+              </div>
+            </div>
+            <label class="switch-row">
+              <span>Voice output results</span>
+              <input id="voiceOutputToggle" type="checkbox" />
+            </label>
+            <label class="switch-row">
+              <span>Auto-save history</span>
+              <input id="historyToggle" type="checkbox" checked />
+            </label>
+            <label class="switch-row">
+              <span>Angle unit</span>
+              <select id="angleUnit">
+                <option value="deg">Degrees</option>
+                <option value="rad">Radians</option>
+              </select>
+            </label>
+          </section>
+        </aside>
+
+        <section class="converter-panel" aria-labelledby="converterTitle">
+          <div class="section-header">
+            <div>
+              <p class="eyebrow">Utility Suite</p>
+              <h2 id="converterTitle">Converters</h2>
+            </div>
+          </div>
+
+          <div class="converter-grid">
+            <form class="converter-card" id="currencyForm">
+              <h3>Currency Converter</h3>
+              <div class="input-row">
+                <input id="currencyAmount" type="number" min="0" step="any" value="1" aria-label="Currency amount" />
+                <select id="currencyFrom" aria-label="From currency"></select>
+                <select id="currencyTo" aria-label="To currency"></select>
+              </div>
+              <output id="currencyResult">1 USD = 83.10 INR</output>
+              <small>Uses static demo rates for offline reliability.</small>
+            </form>
+
+            <form class="converter-card" id="unitForm">
+              <h3>Unit Converter</h3>
+              <div class="input-row">
+                <input id="unitAmount" type="number" step="any" value="1" aria-label="Unit amount" />
+                <select id="unitType" aria-label="Unit category">
+                  <option value="length">Length</option>
+                  <option value="weight">Weight</option>
+                  <option value="temperature">Temperature</option>
+                </select>
+              </div>
+              <div class="input-row">
+                <select id="unitFrom" aria-label="From unit"></select>
+                <select id="unitTo" aria-label="To unit"></select>
+              </div>
+              <output id="unitResult">1 meter = 3.28 feet</output>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="historyItemTemplate">
+      <li class="history-item">
+        <button class="history-reuse" type="button"></button>
+        <button class="history-delete" type="button" aria-label="Delete history item">×</button>
+      </li>
+    </template>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
